@@ -1,23 +1,19 @@
-/* Variáveis para Temas */
 :root {
-    --bg-primary: #f8f9fa;
-    --text-primary: #333333;
+    --bg-primary: #ffe6ee; /* Rosa bebê */
+    --text-primary: #4a2e35;
     --card-bg: #ffffff;
-    --card-border: #e0e0e0;
-    --accent-color: #d87093;
-    --price-color: #2e7d32;
+    --card-border: #f4c2c2;
+    --price-color: #d81b60;
 }
 
 body.dark-theme {
-    --bg-primary: #121212;
-    --text-primary: #f1f1f1;
-    --card-bg: #1e1e1e;
-    --card-border: #333333;
-    --accent-color: #ffb6c1;
-    --price-color: #81c784;
+    --bg-primary: #2b1b22;
+    --text-primary: #ffdde6;
+    --card-bg: #3d232f;
+    --card-border: #5c3547;
+    --price-color: #ff80ab;
 }
 
-/* Configurações Gerais */
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -31,7 +27,7 @@ header {
     text-align: center;
     padding: 2rem 1rem;
     background-color: var(--card-bg);
-    border-bottom: 1px solid var(--card-border);
+    border-bottom: 2px solid var(--card-border);
 }
 
 .controls {
@@ -42,71 +38,87 @@ header {
     margin-top: 1rem;
 }
 
-button#theme-toggle {
-    background-color: var(--accent-color);
-    color: white;
+/* Botão Rosa Holográfico */
+.holo-btn {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+    background-size: 200% 200%;
+    color: #4a2e35;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255, 154, 158, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s, background-position 0.5s;
 }
 
-.bg-picker {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.holo-btn:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 154, 158, 0.6);
 }
 
-/* Categorias */
-.categories {
+.category-buttons {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--card-border);
+    padding: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.categories a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Layout por Blocos */
 .container {
-    max-width: 1000px;
-    margin: 2rem auto;
+    max-width: 900px;
+    margin: 1rem auto;
     padding: 0 1rem;
 }
 
 .category-block {
-    margin-bottom: 3rem;
+    display: none;
 }
 
-.category-block h2 {
-    border-left: 4px solid var(--accent-color);
-    padding-left: 0.5rem;
-    margin-bottom: 1rem;
+.category-block.active {
+    display: block;
 }
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
 }
 
 .card {
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 .price-tag {
     color: var(--price-color);
     font-weight: bold;
-    font-size: 0.9rem;
+}
+
+/* Sessão de Like e Deslike */
+.feedback {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--card-border);
+}
+
+.feedback button {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.feedback button:hover {
+    background-color: rgba(255, 154, 158, 0.2);
 }

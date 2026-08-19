@@ -3,86 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beleza Acessível - Dicas Baratas e Eficientes</title>
+    <title>Beleza Acessível</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Cabeçalho e Painel de Preferências -->
     <header>
         <h1>Beleza Acessível ✨</h1>
-        <p>Cuidados com a pele, cabelo e maquiagem sem gastar muito!</p>
+        <p>Escolha uma categoria e avalie as dicas!</p>
         
         <div class="controls">
-            <button id="theme-toggle">🌙 Modo Escuro</button>
-            
+            <button id="theme-toggle" class="holo-btn">🌙 Alternar Modo Escuro</button>
             <div class="bg-picker">
-                <label for="bg-color">Cor de Fundo:</label>
-                <input type="color" id="bg-color" value="#f8f9fa">
+                <label for="bg-color">Personalizar Fundo:</label>
+                <input type="color" id="bg-color" value="#ffe6ee">
             </div>
         </div>
     </header>
 
-    <!-- Navegação por Categorias -->
-    <nav class="categories">
-        <a href="#skincare">Skincare</a>
-        <a href="#cabelos">Cabelos</a>
-        <a href="#maquiagem">Maquiagem</a>
+    <!-- Navegação por Botões -->
+    <nav class="category-buttons">
+        <button class="holo-btn nav-btn active" onclick="showCategory('skincare')">🧴 Skincare</button>
+        <button class="holo-btn nav-btn" onclick="showCategory('cabelos')">💇‍♀️ Cabelos</button>
+        <button class="holo-btn nav-btn" onclick="showCategory('maquiagem')">💄 Maquiagem</button>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container">
 
         <!-- Categoria: Skincare -->
-        <section id="skincare" class="category-block">
-            <h2>🧴 Skincare Bom e Barato</h2>
+        <section id="skincare" class="category-block active">
+            <h2>🧴 Dicas de Skincare</h2>
             <div class="card-grid">
                 <article class="card">
-                    <h3>Limpeza Dupla com Óleo de Coco</h3>
-                    <p class="price-tag">Custo: Baixíssimo (~R$ 15)</p>
-                    <p>Remova a maquiagem e o protetor solar usando óleos vegetais puros antes do sabonete facial habitual.</p>
+                    <h3>Máscara de Argila Verde</h3>
+                    <p class="price-tag">Custo médio: R$ 12,00</p>
+                    <p>Ótima para controlar a oleosidade e diminuir os poros. Rende múltiplos usos.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
-                
+
                 <article class="card">
-                    <h3>Hidratação com Sorofisiológico</h3>
-                    <p class="price-tag">Custo: Baixíssimo (~R$ 5)</p>
-                    <p>Guarde o soro na geladeira e use como tônico para acalmar a pele e fechar os poros após a limpeza.</p>
+                    <h3>Protetor Solar Toque Seco</h3>
+                    <p class="price-tag">Custo médio: R$ 30,00</p>
+                    <p>Essencial para proteção diária sem deixar a pele melada ou brilhosa.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Categoria: Cabelos -->
         <section id="cabelos" class="category-block">
-            <h2>💇‍♀️ Cabelos Bonitos Sem Ostentação</h2>
+            <h2>💇‍♀️ Dicas de Cabelos</h2>
             <div class="card-grid">
                 <article class="card">
-                    <h3>Umectação com Óleo de Rícino</h3>
-                    <p class="price-tag">Custo: Baixo (~R$ 10)</p>
-                    <p>Aplica-se o óleo no couro cabeludo e fios antes de lavar. Estimula o crescimento e combate o ressecamento.</p>
+                    <h3>Acidificação com Vinagre de Maçã</h3>
+                    <p class="price-tag">Custo médio: R$ 8,00</p>
+                    <p>Selagem das cutículas do fio após a lavagem. Garante um brilho intenso.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
 
                 <article class="card">
-                    <h3>Touca de Cetim Caseira</h3>
-                    <p class="price-tag">Custo: Baixo (~R$ 15)</p>
-                    <p>Dormir com touca ou fronha de cetim reduz o atrito, diminuindo o frizz e mantendo a hidratação por mais tempo.</p>
+                    <h3>Pré-Shampoo com Máscara Leve</h3>
+                    <p class="price-tag">Custo médio: R$ 15,00</p>
+                    <p>Protege as pontas do ressecamento provocado pelo shampoo comum.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Categoria: Maquiagem -->
         <section id="maquiagem" class="category-block">
-            <h2>💄 Maquiagem Prática e Econômica</h2>
+            <h2>💄 Dicas de Maquiagem</h2>
             <div class="card-grid">
                 <article class="card">
-                    <h3>Batom Multiuso</h3>
-                    <p class="price-tag">Custo: Médio (~R$ 20)</p>
-                    <p>Use um batom labial cremoso em tom rosado ou marrom como blush e sombra para uma make rápida e monocromática.</p>
+                    <h3>BB Cream Multifuncional</h3>
+                    <p class="price-tag">Custo médio: R$ 25,00</p>
+                    <p>Uniformiza o tom da pele, hidrata e oferece cobertura leve para o dia a dia.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
 
                 <article class="card">
-                    <h3>Diluidor de Maquiagem Barato</h3>
-                    <p class="price-tag">Custo: Baixo (~R$ 12)</p>
-                    <p>Algumas gotas de soro fisiológico ou óleo facial recuperam delineadores e máscaras de cílios ressecadas.</p>
+                    <h3>Gel de Sobrancelhas Incolor</h3>
+                    <p class="price-tag">Custo médio: R$ 14,00</p>
+                    <p>Maneira rápida e barata de manter os fios alinhados o dia todo.</p>
+                    <div class="feedback">
+                        <button class="like-btn" onclick="vote(this, 'like')">👍 <span class="count">0</span></button>
+                        <button class="dislike-btn" onclick="vote(this, 'dislike')">👎 <span class="count">0</span></button>
+                    </div>
                 </article>
             </div>
         </section>
