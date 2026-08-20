@@ -11,7 +11,6 @@
             --card-bg: rgba(255, 255, 255, 0.85);
             --btn-primary: #d87093; /* Rosa mais escuro */
             --btn-hover: #c71585;
-            --holographic: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #a1c4fd 100%);
             --header-bg: #ffb6c1;
         }
 
@@ -55,7 +54,6 @@
             margin-bottom: 10px;
         }
 
-        /* Controles de Personalização */
         .controls {
             display: flex;
             gap: 15px;
@@ -120,7 +118,6 @@
             background: var(--btn-hover);
         }
 
-        /* Navegação por Abas (Pastas) */
         .nav-tabs {
             display: flex;
             gap: 10px;
@@ -129,7 +126,6 @@
             flex-wrap: wrap;
         }
 
-        /* Seções de Conteúdo */
         .tab-content {
             display: none;
             width: 100%;
@@ -148,10 +144,11 @@
 
         .grid-dicas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
+        /* Cards e Interatividade */
         .card {
             background: var(--card-bg);
             border-radius: 15px;
@@ -159,11 +156,32 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             border-left: 5px solid var(--btn-primary);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
         .card .icon {
             font-size: 2rem;
             margin-bottom: 10px;
+        }
+
+        .fav-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.2);
         }
 
         .card h3 {
@@ -175,6 +193,64 @@
         .card p {
             font-size: 0.95rem;
             line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* Seção de Experiências / Comentários */
+        .experiencias-section {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .experiencias-section h4 {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            color: var(--btn-primary);
+        }
+
+        .lista-comentarios {
+            max-height: 80px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            padding-right: 5px;
+        }
+
+        .comentario-item {
+            background: rgba(0,0,0,0.03);
+            padding: 4px 8px;
+            border-radius: 5px;
+            margin-bottom: 4px;
+        }
+
+        .form-experiencia {
+            display: flex;
+            gap: 5px;
+        }
+
+        .form-experiencia input {
+            flex: 1;
+            padding: 5px 8px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 0.8rem;
+            background: transparent;
+            color: var(--text-color);
+        }
+
+        .form-experiencia button {
+            background: var(--btn-primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .form-experiencia button:hover {
+            background: var(--btn-hover);
         }
 
         footer {
@@ -202,26 +278,24 @@
         <button class="holo-btn" onclick="alternarTema()">🌙 Alternar Tema Claro/Escuro</button>
     </div>
 
-    <!-- Navegação (Pastas Virtuais) -->
+    <!-- Navegação -->
     <div class="nav-tabs">
         <button class="holo-btn" onclick="mudarAba('skincare')">💧 Skincare Acessível</button>
         <button class="holo-btn" onclick="mudarAba('cabelo')">💇‍♀️ Cuidados com o Cabelo</button>
         <button class="holo-btn" onclick="mudarAba('maquiagem')">💄 Maquiagem Prática</button>
     </div>
 
-    <!-- PASTA 1: SKINCARE (15 Dicas) -->
+    <!-- Abas -->
     <div id="skincare" class="tab-content active">
         <h2 style="text-align:center; margin-bottom:20px; color:var(--btn-primary);">💧 15 Dicas de Skincare</h2>
         <div class="grid-dicas" id="grid-skincare"></div>
     </div>
 
-    <!-- PASTA 2: CABELO (15 Dicas) -->
     <div id="cabelo" class="tab-content">
         <h2 style="text-align:center; margin-bottom:20px; color:var(--btn-primary);">💇‍♀️ 15 Dicas para o Cabelo</h2>
         <div class="grid-dicas" id="grid-cabelo"></div>
     </div>
 
-    <!-- PASTA 3: MAQUIAGEM (15 Dicas) -->
     <div id="maquiagem" class="tab-content">
         <h2 style="text-align:center; margin-bottom:20px; color:var(--btn-primary);">💄 15 Dicas de Maquiagem</h2>
         <div class="grid-dicas" id="grid-maquiagem"></div>
@@ -232,81 +306,155 @@
     </footer>
 
     <script>
-        // Dados das 15 Dicas para cada categoria
         const skincareDicas = [
-            { icone: "🧼", titulo: "1. Limpeza Suave", desc: "Use sabonete específico para o rosto duas vezes ao dia para não remover a proteção natural." },
-            { icone: "💧", titulo: "2. Hidratação Diária", desc: "Mesmo peles oleosas precisam de hidratante leve em gel para manter o equilíbrio." },
-            { icone: "☀️", titulo: "3. Protetor Solar Sempre", desc: "O passo mais importante! Protege contra manchas, envelhecimento e queimaduras todos os dias." },
-            { icone: "🧊", titulo: "4. Gelo de Chá Verde", desc: "Desinche o rosto pela manhã passando cubos de gelo de chá verde enrolados em um pano limpo." },
-            { icone: "🍯", titulo: "5. Máscara de Mel", desc: "O mel é bactericida e hidratante natural. Aplique por 10 minutos para uma pele iluminada." },
-            { icone: "💧", titulo: "6. Beba Água", desc: "A hidratação de dentro para fora reflete diretamente na elasticidade e viço da pele." },
-            { icone: "🍅", titulo: "7. Esfoliação com Borra de Café", desc: "Misture borra de café com mel para uma esfoliação caseira barata e revigorante (1x na semana)." },
-            { icone: "🥒", titulo: "8. Rodelas de Pepino", desc: "Ótimas para amenizar olheiras e dar uma sensação refrescante na área dos olhos." },
-            { icone: "🛌", titulo: "9. Fronha Limpa", desc: "Troque a fronha do travesseiro a cada 3 dias para evitar acúmulo de bactérias e espinhas." },
-            { icone: "🚫", titulo: "10. Não durma com maquiagem", desc: "Isso entope os poros e causa cravos. Remova sempre antes de deitar." },
-            { icone: "🌿", titulo: "11. Babosa (Aloe Vera)", desc: "O gel puro da folha acalma vermelhidões e hidrata áreas ressecadas do rosto." },
-            { icone: "🧴", titulo: "12. Água Termal Caseira", desc: "Chá de camomila gelado em borrifador acalma peles irritadas ao longo do dia." },
-            { icone: "🧖‍♀️", titulo: "13. Vaporização Facial", desc: "Aproxime o rosto de uma bacia com água morna e toalha na cabeça para abrir os poros antes de limpar." },
-            { icone: "🍒", titulo: "14. Vitamina C Econômica", desc: "Alimentos ricos em vitamina C ajudam na imunidade e no viço da pele consumidos regularmente." },
-            { icone: "💤", titulo: "15. Sono de Beleza", desc: "Dormir de 7 a 8 horas por noite reduz olheiras e ajuda na regeneração celular." }
+            { id: "sk_1", icone: "🧼", titulo: "1. Limpeza Suave", desc: "Use sabonete específico para o rosto duas vezes ao dia para não remover a proteção natural." },
+            { id: "sk_2", icone: "💧", titulo: "2. Hidratação Diária", desc: "Mesmo peles oleosas precisam de hidratante leve em gel para manter o equilíbrio." },
+            { id: "sk_3", icone: "☀️", titulo: "3. Protetor Solar Sempre", desc: "O passo mais importante! Protege contra manchas, envelhecimento e queimaduras todos os dias." },
+            { id: "sk_4", icone: "🧊", titulo: "4. Gelo de Chá Verde", desc: "Desinche o rosto pela manhã passando cubos de gelo de chá verde enrolados em um pano limpo." },
+            { id: "sk_5", icone: "🍯", titulo: "5. Máscara de Mel", desc: "O mel é bactericida e hidratante natural. Aplique por 10 minutos para uma pele iluminada." },
+            { id: "sk_6", icone: "💧", titulo: "6. Beba Água", desc: "A hidratação de dentro para fora reflete diretamente na elasticidade e viço da pele." },
+            { id: "sk_7", icone: "🍅", titulo: "7. Esfoliação com Borra de Café", desc: "Misture borra de café com mel para uma esfoliação caseira barata e revigorante (1x na semana)." },
+            { id: "sk_8", icone: "🥒", titulo: "8. Rodelas de Pepino", desc: "Ótimas para amenizar olheiras e dar uma sensação refrescante na área dos olhos." },
+            { id: "sk_9", icone: "🛌", titulo: "9. Fronha Limpa", desc: "Troque a fronha do travesseiro a cada 3 dias para evitar acúmulo de bactérias e espinhas." },
+            { id: "sk_10", icone: "🚫", titulo: "10. Não durma com maquiagem", desc: "Isso entope os poros e causa cravos. Remova sempre antes de deitar." },
+            { id: "sk_11", icone: "🌿", titulo: "11. Babosa (Aloe Vera)", desc: "O gel puro da folha acalma vermelhidões e hidrata áreas ressecadas do rosto." },
+            { id: "sk_12", icone: "🧴", titulo: "12. Água Termal Caseira", desc: "Chá de camomila gelado em borrifador acalma peles irritadas ao longo do dia." },
+            { id: "sk_13", icone: "🧖‍♀️", titulo: "13. Vaporização Facial", desc: "Aproxime o rosto de uma bacia com água morna e toalha na cabeça para abrir os poros antes de limpar." },
+            { id: "sk_14", icone: "🍒", titulo: "14. Vitamina C Econômica", desc: "Alimentos ricos em vitamina C ajudam na imunidade e no viço da pele consumidos regularmente." },
+            { id: "sk_15", icone: "💤", titulo: "15. Sono de Beleza", desc: "Dormir de 7 a 8 horas por noite reduz olheiras e ajuda na regeneração celular." }
         ];
 
         const cabeloDicas = [
-            { icone: "🚿", titulo: "1. Água Morna a Fria", desc: "Evite água muito quente para não ressecar os fios e estimular caspa." },
-            { icone: "🥥", titulo: "2. Umectação com Óleo de Coco", desc: "Aplique óleo de coco vegetal nos fios secos antes de lavar para nutrir profundamente." },
-            { icone: "🪮", titulo: "3. Desembarace de Baixo para Cima", desc: "Comece pelas pontas e vá subindo para não quebrar o cabelo." },
-            { icone: "🧣", titulo: "4. Fronha de Cetim", desc: "Evita o frizz e a quebra dos fios durante o sono comparado ao algodão." },
-            { icone: "🥑", titulo: "5. Hidratação Caseira de Abacate", desc: "Amasse meia abacate com creme de hidratação para fios super macios e brilhantes." },
-            { icone: "⏱️", titulo: "6. Respeite o Tempo de Ação", desc: "Deixar a máscara por horas não adianta; siga o tempo do rótulo (geralmente 3 a 5 minutos)." },
-            { icone: "🧴", titulo: "7. Protetor Térmico", desc: "Sempre use antes do secador, chapinha ou difusor para blindar contra o calor." },
-            { icone: "🔄", titulo: "8. Cronograma Capilar", desc: "Alterne entre Hidratação, Nutrição e Reconstrução conforme a necessidade do seu fio." },
-            { icone: "✂️", titulo: "9. Corte as Pontas", desc: "Aparar as pontinhas a cada 3 meses elimina pontas duplas e dá leveza." },
-            { icone: "🌿", titulo: "10. Tônico de Alecrim", desc: "Estimula o crescimento capilar saudável e combate a queda de forma barata e natural." },
-            { icone: "👕", titulo: "11. Secar com Camisa de Algodão", desc: "Substitua a toalha comum por uma camisa velha de algodão para secar sem frizz." },
-            { icone: "🧼", titulo: "12. Shampoo só na Raiz", desc: "O comprimento limpa com a espuma que escorre; não esfregue o comprimento." },
-            { icone: "🧊", titulo: "13. Último Enxágue Gelado", desc: "Ajuda a selar as cutículas e garante um brilho instantâneo no cabelo." },
-            { icone: "💧", titulo: "14. Leave-in Diário", desc: "Use um creme sem enxágue nas pontas para proteger contra poluição e sol." },
-            { icone: "🧘‍♀️", titulo: "15. Massagem no Couro Cabeludo", desc: "Massageie com as pontas dos dedos na hora do banho para ativar a circulação sanguínea." }
+            { id: "cb_1", icone: "🚿", titulo: "1. Água Morna a Fria", desc: "Evite água muito quente para não ressecar os fios e estimular caspa." },
+            { id: "cb_2", icone: "🥥", titulo: "2. Umectação com Óleo de Coco", desc: "Aplique óleo de coco vegetal nos fios secos antes de lavar para nutrir profundamente." },
+            { id: "cb_3", icone: "🪮", titulo: "3. Desembarace de Baixo para Cima", desc: "Comece pelas pontas e vá subindo para não quebrar o cabelo." },
+            { id: "cb_4", icone: "🧣", titulo: "4. Fronha de Cetim", desc: "Evita o frizz e a quebra dos fios durante o sono comparado ao algodão." },
+            { id: "cb_5", icone: "🥑", titulo: "5. Hidratação Caseira de Abacate", desc: "Amasse meia abacate com creme de hidratação para fios super macios e brilhantes." },
+            { id: "cb_6", icone: "⏱️", titulo: "6. Respeite o Tempo de Ação", desc: "Deixar a máscara por horas não adianta; siga o tempo do rótulo (geralmente 3 a 5 minutos)." },
+            { id: "cb_7", icone: "🧴", titulo: "7. Protetor Térmico", desc: "Sempre use antes do secador, chapinha ou difusor para blindar contra o calor." },
+            { id: "cb_8", icone: "🔄", titulo: "8. Cronograma Capilar", desc: "Alterne entre Hidratação, Nutrição e Reconstrução conforme a necessidade do seu fio." },
+            { id: "cb_9", icone: "✂️", titulo: "9. Corte as Pontas", desc: "Aparar as pontinhas a cada 3 meses elimina pontas duplas e dá leveza." },
+            { id: "cb_10", icone: "🌿", titulo: "10. Tônico de Alecrim", desc: "Estimula o crescimento capilar saudável e combate a queda de forma barata e natural." },
+            { id: "cb_11", icone: "👕", titulo: "11. Secar com Camisa de Algodão", desc: "Substitua a toalha comum por uma camisa velha de algodão para secar sem frizz." },
+            { id: "cb_12", icone: "🧼", titulo: "12. Shampoo só na Raiz", desc: "O comprimento limpa com a espuma que escorre; não esfregue o comprimento." },
+            { id: "cb_13", icone: "🧊", titulo: "13. Último Enxágue Gelado", desc: "Ajuda a selar as cutículas e garante um brilho instantâneo no cabelo." },
+            { id: "cb_14", icone: "💧", titulo: "14. Leave-in Diário", desc: "Use um creme sem enxágue nas pontas para proteger contra poluição e sol." },
+            { id: "cb_15", icone: "🧘‍♀️", titulo: "15. Massagem no Couro Cabeludo", desc: "Massageie com as pontas dos dedos na hora do banho para ativar a circulação sanguínea." }
         ];
 
         const maquiagemDicas = [
-            { icone: "✨", titulo: "1. Hidratante antes de tudo", desc: "A base assenta muito melhor e não craquela se a pele estiver hidratada." },
-            { icone: "🎨", titulo: "2. Corretivo no Ponto Certo", desc: "Aplique apenas no cantinho interno do olho para iluminar o olhar sem pesar." },
-            { icone: "🧊", titulo: "3. Fixador Caseiro com Soro", desc: "Borrifar soro fisiológico gelado ajuda a fixar a maquiagem e refrescar." },
-            { icone: "💋", titulo: "4. Esfoliação nos Lábios", desc: "Misture açúcar com mel para remover peles soltas antes de passar batom matte." },
-            { icone: "👁️", titulo: "5. Curvex Aquecido", desc: "Esquente levemente o curvex com o secador (teste no braço antes!) para o cílio durar curvado o dia todo." },
-            { icone: "🖌️", titulo: "6. Lave os Pincéis", desc: "Higienize pincéis e esponjas quinzenalmente para evitar espinhas e infecções." },
-            { icone: "💄", titulo: "7. Batom como Blush", desc: "Use um batom cremoso rosado como blush cremoso para um efeito super natural." },
-            { icone: "🤎", titulo: "8. Sombra como Delineador", desc: "Molhe um pincel chanfrado com água ou soro e use sombra escura para um delineado esfumado fácil." },
-            { icone: "🪄", titulo: "9. Truque do Contorno", desc: "Faça traços leves abaixo das maçãs do rosto para afinar o rosto com delicadeza." },
-            { icone: "🌟", titulo: "10. Iluminador Estratégico", desc: "Pingo de iluminador no arco do cupido (boca) e pontinha do nariz dá um charme incrível." },
-            { icone: "📐", titulo: "11. Corrigir a Sobrancelha com Leveza", desc: "Preencha apenas as falhas com sombra opaca ou lápis seco para um visual natural." },
-            { icone: "📌", titulo: "12. Pó Translúcido na Medida", desc: "Aplique apenas na zona T (testa, nariz e queixo) para controlar a oleosidade sem trincar." },
-            { icone: "👁️‍🗨️", titulo: "13. Lápis Bege na Linha d'Água", desc: "Abre o olhar e dá a impressão de olhos maiores e mais descansados." },
-            { icone: "🌬️", titulo: "14. Retirar Excesso de Pó", desc: "Passe um pincel limpo e seco no rosto todo no final para tirar o aspecto pesado." },
-            { icone: "🎒", titulo: "15. Kit de Sobrevivência na Bolsa", desc: "Carregue lenço antioleosidade, batom e corretivo para retoques rápidos." }
+            { id: "mq_1", icone: "✨", titulo: "1. Hidratante antes de tudo", desc: "A base assenta muito melhor e não craquela se a pele estiver hidratada." },
+            { id: "mq_2", icone: "🎨", titulo: "2. Corretivo no Ponto Certo", desc: "Aplique apenas no cantinho interno do olho para iluminar o olhar sem pesar." },
+            { id: "mq_3", icone: "🧊", titulo: "3. Fixador Caseiro com Soro", desc: "Borrifar soro fisiológico gelado ajuda a fixar a maquiagem e refrescar." },
+            { id: "mq_4", icone: "💋", titulo: "4. Esfoliação nos Lábios", desc: "Misture açúcar com mel para remover peles soltas antes de passar batom matte." },
+            { id: "mq_5", icone: "👁️", titulo: "5. Curvex Aquecido", desc: "Esquente levemente o curvex com o secador para o cílio durar curvado o dia todo." },
+            { id: "mq_6", icone: "🖌️", titulo: "6. Lave os Pincéis", desc: "Higienize pincéis e esponjas quinzenalmente para evitar espinhas e infecções." },
+            { id: "mq_7", icone: "💄", titulo: "7. Batom como Blush", desc: "Use um batom cremoso rosado como blush cremoso para um efeito super natural." },
+            { id: "mq_8", icone: "🤎", titulo: "8. Sombra como Delineador", desc: "Molhe um pincel chanfrado com água ou soro e use sombra escura para um delineado esfumado fácil." },
+            { id: "mq_9", icone: "🪄", titulo: "9. Truque do Contorno", desc: "Faça traços leves abaixo das maçãs do rosto para afinar o rosto com delicadeza." },
+            { id: "mq_10", icone: "🌟", titulo: "10. Iluminador Estratégico", desc: "Pingo de iluminador no arco do cupido (boca) e pontinha do nariz dá um charme incrível." },
+            { id: "mq_11", icone: "📐", titulo: "11. Corrigir a Sobrancelha com Leveza", desc: "Preencha apenas as falhas com sombra opaca ou lápis seco para um visual natural." },
+            { id: "mq_12", icone: "📌", titulo: "12. Pó Translúcido na Medida", desc: "Aplique apenas na zona T para controlar a oleosidade sem trincar." },
+            { id: "mq_13", icone: "👁️‍🗨️", titulo: "13. Lápis Bege na Linha d'Água", desc: "Abre o olhar e dá a impressão de olhos maiores e mais descansados." },
+            { id: "mq_14", icone: "🌬️", titulo: "14. Retirar Excesso de Pó", desc: "Passe um pincel limpo e seco no rosto todo no final para tirar o aspecto pesado." },
+            { id: "mq_15", icone: "🎒", titulo: "15. Kit de Sobrevivência na Bolsa", desc: "Carregue lenço antioleosidade, batom e corretivo para retoques rápidos." }
         ];
 
-        // Função para injetar dinamicamente os cards nas pastas
-        function preencherDicas(idContainer, lista) {
-            const container = document.getElementById(idContainer);
-            container.innerHTML = lista.map(dica => `
-                <div class="card">
-                    <div class="icon">${dica.icone}</div>
-                    <h3>${dica.titulo}</h3>
-                    <p>${dica.desc}</p>
-                </div>
-            `).join('');
+        // Gerenciamento de Dados Locais (Favoritos e Comentários)
+        function obterDadosSalvos() {
+            return JSON.parse(localStorage.getItem('cantinhoDelasDados')) || {};
         }
 
-        // Inicializar os conteúdos
+        function salvarDados(dados) {
+            localStorage.setItem('cantinhoDelasDados', JSON.stringify(dados));
+        }
+
+        function toggleFavorito(idDica) {
+            let dados = obterDadosSalvos();
+            if(!dados[idDica]) dados[idDica] = { fav: false, experiencias: [] };
+            dados[idDica].fav = !dados[idDica].fav;
+            salvarDados(dados);
+            atualizarCardUI(idDica);
+        }
+
+        function adicionarExperiencia(idDica, event) {
+            event.preventDefault();
+            const input = document.getElementById(`input-${idDica}`);
+            const texto = input.value.trim();
+            if(!texto) return;
+
+            let dados = obterDadosSalvos();
+            if(!dados[idDica]) dados[idDica] = { fav: false, experiencias: [] };
+            dados[idDica].experiencias.push(texto);
+            salvarDados(dados);
+
+            input.value = '';
+            atualizarCardUI(idDica);
+        }
+
+        function atualizarCardUI(idDica) {
+            const dados = obterDadosSalvos()[idDica] || { fav: false, experiencias: [] };
+            
+            // Atualiza ícone do favorito
+            const btnFav = document.getElementById(`fav-${idDica}`);
+            if(btnFav) {
+                btnFav.textContent = dados.fav ? "❤️" : "🤍";
+            }
+
+            // Atualiza lista de comentários
+            const listaComentarios = document.getElementById(`comentarios-${idDica}`);
+            if(listaComentarios) {
+                if(dados.experiencias.length === 0) {
+                    listaComentarios.innerHTML = '<div class="comentario-item" style="opacity:0.6;">Nenhuma experiência ainda. Seja a primeira!</div>';
+                } else {
+                    listaComentarios.innerHTML = dados.experiencias.map(exp => `<div class="comentario-item">💬 ${exp}</div>`).join('');
+                }
+            }
+        }
+
+        function preencherDicas(idContainer, lista) {
+            const container = document.getElementById(idContainer);
+            const dadosSalvos = obterDadosSalvos();
+
+            container.innerHTML = lista.map(dica => {
+                const info = dadosSalvos[dica.id] || { fav: false, experiencias: [] };
+                const coracao = info.fav ? "❤️" : "🤍";
+                const experienciasHtml = info.experiencias.length === 0 
+                    ? '<div class="comentario-item" style="opacity:0.6;">Nenhuma experiência ainda. Seja a primeira!</div>'
+                    : info.experiencias.map(exp => `<div class="comentario-item">💬 ${exp}</div>`).join('');
+
+                return `
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <div class="icon">${dica.icone}</div>
+                                <button class="fav-btn" id="fav-${dica.id}" onclick="toggleFavorito('${dica.id}')" title="Favoritar dica">${coracao}</button>
+                            </div>
+                            <h3>${dica.titulo}</h3>
+                            <p>${dica.desc}</p>
+                        </div>
+                        <div class="experiencias-section">
+                            <h4>Suas Experiências:</h4>
+                            <div class="lista-comentarios" id="comentarios-${dica.id}">
+                                ${experienciasHtml}
+                            </div>
+                            <form class="form-experiencia" onsubmit="adicionarExperiencia('${dica.id}', event)">
+                                <input type="text" id="input-${dica.id}" placeholder="Deixe sua dica/experiência..." required>
+                                <button type="submit">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Inicializar abas
         preencherDicas('grid-skincare', skincareDicas);
         preencherDicas('grid-cabelo', cabeloDicas);
         preencherDicas('grid-maquiagem', maquiagemDicas);
 
-        // Funções de Navegação e Cores
         function mudarAba(idAba) {
-            document.querySelectorAll('.tab-content').forEach(aba => aba.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(aba => aba.classList.remove('icon-none') || aba.classList.remove('active'));
             document.getElementById(idAba).classList.add('active');
         }
 
